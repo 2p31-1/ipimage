@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
     // Extract client IP address
     const forwarded = request.headers.get('x-forwarded-for');
     const realIP = request.headers.get('x-real-ip');
-    const clientIP = forwarded?.split(',')[0] || realIP || request.ip || 'Unknown IP';
+    const clientIP = forwarded?.split(',')[0]?.trim() || realIP || '127.0.0.1';
 
     // Create canvas
     const canvas = createCanvas(400, 200);
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     const buffer = canvas.toBuffer('image/png');
 
     // Return image response
-    return new NextResponse(buffer, {
+    return new Response(new Uint8Array(buffer), {
       status: 200,
       headers: {
         'Content-Type': 'image/png',
