@@ -1,13 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createCanvas, registerFont } from 'canvas';
-import path from 'path';
-
-// Register font once at module level
-try {
-  registerFont(path.join(process.cwd(), 'public', 'fonts', 'DejaVuSans.ttf'), { family: 'DejaVu Sans' });
-} catch {
-  console.warn('Could not load DejaVu Sans font, falling back to system fonts');
-}
+import { createCanvas } from 'canvas';
 
 export async function GET(request: NextRequest) {
   try {
@@ -24,9 +16,9 @@ export async function GET(request: NextRequest) {
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, 400, 200);
 
-    // Set text properties
+    // Set text properties  
     ctx.fillStyle = '#000000';
-    ctx.font = '24px "DejaVu Sans", monospace, sans-serif';
+    ctx.font = '32px sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
