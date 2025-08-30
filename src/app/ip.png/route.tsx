@@ -10,6 +10,9 @@ export async function GET(request: NextRequest) {
     const forwarded = request.headers.get('x-forwarded-for');
     const realIP = request.headers.get('x-real-ip');
     const clientIP = forwarded?.split(',')[0]?.trim() || realIP || '127.0.0.1';
+    
+    // Log IP request to Vercel logs
+    console.log(`PNG request from IP: ${clientIP} | User-Agent: ${request.headers.get('user-agent')} | Time: ${new Date().toISOString()}`);
 
     return new ImageResponse(
       (
